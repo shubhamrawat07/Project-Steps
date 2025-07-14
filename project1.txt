@@ -1,0 +1,113 @@
+ec2 instance - port 8080 0.0.0.0 - 30 GB
+
+sudo su
+
+[ getting Jenkins repository ]
+
+wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+[ installing Java and Jenkins ]
+
+dnf install java-21-amazon-corretto-devel   (version acc to Jenkins req.)
+
+dnf install jenkins
+
+systemctl enable jenkins
+
+systemctl start jenkins
+
+systemctl status jenkins
+
+Browser - public IP:8080
+
+Jenkins id - admin pass - cat /var/lib/jenkins/secrets/initialAdminPassword
+
+install GitHub ( in Jenkins)
+
+** Jenkins will save all build related info in /var/lib/Jenkins
+
+install Git and Maven (in EC2)
+
+yum install git
+
+copy link from maven official download website tar.gz file
+
+cd /opt  (where to install file)
+
+wget https://dlcdn.apache.org/maven/maven-3/3.9.10/binaries/apache-maven-3.9.10-bin.tar.gz {link}
+
+tar -xvzf apache-maven-3.9.10-bin.tar.gz {package name}
+
+cd ~ (for root path)
+
+ll -a (to view hidden files)
+
+vi .bash_profile
+
+** VI EDITOR **
+	
+	i to insert
+	a to insert after cursor
+	Esc to Normal Mode
+	:wq to save and exit in normal mode
+	:w save
+	:q quit
+	:q! quit w/o saving
+
+M2_HOME=/opt/maven
+M2=/opt/maven/bin
+JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto.x86_64
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2_HOME:$M2
+
+
+
+
+** after that we can either log out and login again for path changes else run this command (loads the bash profile again)
+
+source .bash_profile
+echo $PATH
+
+mvn -v to check maven version
+
+
+**Now Install Maven in Jenkins Browser
+Global Configuration
+set Java and maven Path by running * ECHO $PATH * in ec2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
